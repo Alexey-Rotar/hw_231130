@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Backup {
     /**
      * Метод создания директории
-     * @param path - путь для создания директории
+     * @param path - путь создаваемой директории
      */
     private static void createDir(String path){
         File dir = new File(path);
@@ -19,7 +19,7 @@ public class Backup {
      * Метод побитового копирования файла
      * @param fileIn - путь к исходному (копируемому) файлу
      * @param fileOut - путь к файлу назначения
-     * @throws IOException
+     * @throws IOException - возможное исключение
      */
     private static void copyFile(String fileIn, String fileOut) throws IOException {
         // На запись
@@ -37,9 +37,9 @@ public class Backup {
     /**
      * Рекурсивный внутренний private метод резервного копирования файлов
      * @param file - исходная директория (объект типа File)
-     * @param toDirPath - путь к директории назначения (String)
+     * @param toDirPath - путь к расположению директории назначения (String)
      * @param backupDirName - имя директории назначения (String)
-     * @throws IOException
+     * @throws IOException - возможное исключение
      */
     private static void backupRecursive(File file, String toDirPath, String backupDirName) throws IOException {
         File[] files = file.listFiles();
@@ -61,10 +61,10 @@ public class Backup {
 
     /**
      * Метод резервного копирования
-     * @param fromDirPath
-     * @param toDirPath
-     * @param backupDirName
-     * @throws IOException
+     * @param fromDirPath - путь к исходной директории (String)
+     * @param toDirPath - путь к директории назначения (String)
+     * @param backupDirName - имя директории назначения (String)
+     * @throws IOException - возможное исключение
      */
     public static void backup(String fromDirPath, String toDirPath, String backupDirName) throws IOException {
         createDir(toDirPath + "/" + backupDirName);
