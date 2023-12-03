@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        backup(".", "./backup");
+        backup(".", ".", "backup");
     }
 
     public static void createDir(String path){
@@ -28,17 +28,17 @@ public class Main {
         }
     }
 
-    public static void backupRecursive(File file) throws IOException {
+    public static void backupRecursive(File file, String backupDirName) throws IOException {
         File[] files = file.listFiles();
         if (files == null)
             return;
 
         for (int i = 0; i < files.length; i++) {
             if (files[i].isDirectory()){
-                if (files[i].getName().equals("backup"))
+                if (files[i].getName().equals(backupDirName))
                     continue;
                 createDir(".//backup/" + files[i].getPath());
-                backupRecursive(files[i]);
+                backupRecursive(files[i], backupDirName);
             }
             if (files[i].isFile()) {
                 copyFile(files[i].toString(), ".//backup" + files[i].getPath().substring(1));
@@ -46,8 +46,8 @@ public class Main {
         }
     }
 
-    public static void backup(String fromDir, String toDir) throws IOException {
-        createDir(toDir);
-        backupRecursive(new File(fromDir));
+    public static void backup(String fromDirPath, String toDirPath, String backupDirName) throws IOException {
+        createDir(toDirPath + "/" + backupDirName);
+        backupRecursive(new File(fromDirPath), backupDirName);
     }
 }
