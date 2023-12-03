@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class Program {
     public static void main(String[] args) throws IOException {
-        Backup.backup(".", ".", "backup");
+        Backup b = new Backup();
+        b.backup(".", ".", "backup");
     }
 }

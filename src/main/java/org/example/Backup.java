@@ -6,11 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Backup {
+
     /**
      * Метод создания директории
      * @param path - путь создаваемой директории
      */
-    private static void createDir(String path){
+    private void createDir(String path){
         File dir = new File(path);
         dir.mkdirs();
     }
@@ -21,7 +22,7 @@ public class Backup {
      * @param fileOut - путь к файлу назначения
      * @throws IOException - возможное исключение
      */
-    private static void copyFile(String fileIn, String fileOut) throws IOException {
+    private void copyFile(String fileIn, String fileOut) throws IOException {
         // На запись
         try (FileOutputStream fileOutputStream = new FileOutputStream(fileOut)){
             int c;
@@ -41,7 +42,7 @@ public class Backup {
      * @param backupDirName - имя директории назначения (String)
      * @throws IOException - возможное исключение
      */
-    private static void backupRecursive(File file, String toDirPath, String backupDirName) throws IOException {
+    private void backupRecursive(File file, String toDirPath, String backupDirName) throws IOException {
         File[] files = file.listFiles();
         if (files == null)
             return;
@@ -66,7 +67,7 @@ public class Backup {
      * @param backupDirName - имя директории назначения (String)
      * @throws IOException - возможное исключение
      */
-    public static void backup(String fromDirPath, String toDirPath, String backupDirName) throws IOException {
+    public void backup(String fromDirPath, String toDirPath, String backupDirName) throws IOException {
         createDir(toDirPath + "/" + backupDirName);
         backupRecursive(new File(fromDirPath), toDirPath, backupDirName);
     }
