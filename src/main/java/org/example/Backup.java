@@ -8,15 +8,6 @@ import java.io.IOException;
 public class Backup {
 
     /**
-     * Метод создания директории
-     * @param path - путь создаваемой директории
-     */
-    private void createDir(String path){
-        File dir = new File(path);
-        dir.mkdirs();
-    }
-
-    /**
      * Метод побитового копирования файла
      * @param fileIn - путь к исходному (копируемому) файлу
      * @param fileOut - путь к файлу назначения
@@ -51,7 +42,7 @@ public class Backup {
             if (files[i].isDirectory()){
                 if (files[i].getName().equals(backupDirName))
                     continue;
-                createDir(toDirPath + "/" + backupDirName + "/" + files[i].getPath());
+                new File(toDirPath + "/" + backupDirName + "/" + files[i].getPath()).mkdirs();
                 backupRecursive(files[i], toDirPath, backupDirName);
             }
             if (files[i].isFile()) {
@@ -62,13 +53,18 @@ public class Backup {
 
     /**
      * Метод резервного копирования
-     * @param fromDirPath - путь к исходной директории (String)
-     * @param toDirPath - путь к директории назначения (String)
+     *
+     * @param fromDirPath   - путь к исходной директории (String)
+     * @param toDirPath     - путь к директории назначения (String)
      * @param backupDirName - имя директории назначения (String)
-     * @throws IOException - возможное исключение
      */
-    public void backup(String fromDirPath, String toDirPath, String backupDirName) throws IOException {
-        createDir(toDirPath + "/" + backupDirName);
-        backupRecursive(new File(fromDirPath), toDirPath, backupDirName);
+    public void backup(String fromDirPath, String toDirPath, String backupDirName) {
+        try {
+            new File(toDirPath + "/" + backupDirName).mkdirs();
+            backupRecursive(new File(fromDirPath), toDirPath, backupDirName);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
+
 }
